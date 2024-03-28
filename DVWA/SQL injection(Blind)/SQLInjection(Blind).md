@@ -53,3 +53,7 @@ batch : 掃描過程不要求使用者輸入
 打出密碼(md5順便解密)
 
 ![alt text](image-5.png)
+
+SQLMap指令表：
+
+https://feifei.tw/security-tool-sqlmap/

@@ -12,3 +12,25 @@
 
 要注意的是，CSRF 攻擊通常僅限於利用用戶已經登錄的情況。它利用了瀏覽器自動將用戶的驗證會話發送到目標網站的特性。為了防止 CSRF 攻擊，網站開發者可以採取各種措施，例如使用 CSRF token、檢查 Referer 頭、使用 SameSite 屬性等。
 
+## Low 
+
+There are no measures in place to protect against this attack. This means a link can be crafted to achieve a certain action (in this case, change the current users password). Then with some basic social engineering, have the target click the link (or just visit a certain page), to trigger the action.
+
+![alt text](image.png)
+
+使用Burpsuite 去攔截資訊
+發現它是使用 GET 方法來改變密碼，所以只要取得到這個IP，去改變password_new及password_conf，任何人都可以竄改密碼
+```
+    http://127.0.0.1/dvwa/vulnerabilities/csrf/?password_new=abc&password_conf=abc&Change=Change#
+```
+
+## Medium 
+For the medium level challenge, there is a check to see where the last requested page came from. The developer believes if it matches the current domain, it must of come from the web application so it can be trusted.
+
+It may be required to link in multiple vulnerabilities to exploit this vector, such as reflective XSS.
+
+在Medium中，增加了阻擋來源的伺服器位址搜尋，因此如果直接使用URL訪問的話，
+驗證會無法通過。
+
+
+

@@ -22,7 +22,7 @@
 
 ## 額外
 
-### 滲透測試工具－Weevely 
+### 滲透測試工具－Weevely (這個別用)
 
 Weevely是一個開源的Python工具，用於進行網站的測試和測試安全性。它主要用於進行網站漏洞測試和測試，可以用於網站測試的各個階段，包括鑒定、發現、測試和應對潛在的安全問題。
 
@@ -99,20 +99,34 @@ kali 本身有內建
 ## HIGH
 除了檢查type外，後端使用了getimagesize(string filename)，會讀取圖片header、圖片長寬的資訊
 格式不對就報錯
+如果你自行把php更改成jpg(使用CP)，上傳仍會被阻擋
 
-因此我們預先準備一張jpg圖片及php檔案，將圖片合併起來生成webshell.jpg 
-上傳成功後就可以使用菜刀、蟻劍來操作webshell 
-
-方法二：更改file 前面格式
+方法：更改file 前面格式
 
 先到
 https://en.wikipedia.org/wiki/List_of_file_signatures
-看圖片格式
+看圖片格式，可以得知PNG擋的前面規則是
+
+89 50 4E 47 0D 0A 1A 0A 
 
 ![alt text](image-6.png)
 
-使用hexeditor 更改test.php格式(先在前面按8個空白鍵)
-cp  改成jpg格式，上傳用burpsuite 攔截
+使用hexeditor 更改exploit.php格式
+(先在前面按8個空白鍵)
+
+```
+    hexeditor exploit.php
+```
+改前八個字的格式，讓他假冒成png
+
+![alt text](image-7.png)
+
+使用cp指令去竄改格式
+
+
+
+
+上傳用burpsuite 攔截
 filename變成如下：
 開啟msfconfig 
 
